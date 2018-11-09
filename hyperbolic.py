@@ -21,7 +21,7 @@ class Isometry:
     def __init__(self, A, B, A2, B2):
         ''' Creates an isometry that sends A to A2 and B to a point on the geodesic [A2,B2].'''
         
-        Ac, Bc, A2c, B2c = map(point_to_complex, (A,B,A2,B2))
+        Ac, Bc, A2c, B2c = [point_to_complex(p) for p in [A,B,A2,B2]]
         
         t = cmath.sqrt((B2c-A2c)*(1-Bc*Ac.conjugate()) / ((Bc-Ac) * (1-B2c*A2c.conjugate())))
         # Later, rescaling will account for the fact that abs(t) != 1.
