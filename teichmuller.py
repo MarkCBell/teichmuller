@@ -52,14 +52,14 @@ L = T.length_spectrum()
 
 # The systole is the curve on S of shortest length. So we can determine its length by asking
 # for the minimum length in the spectrum.
-print 'The systole of this surface has length %f.' % min(L)
+print('The systole of this surface has length %f.' % min(L))
 
 # The spectrum is returned in a random order, so a sensible thing to do is to first sort it.
 L.sort()
 
 # We could now look at some of the shorter curves.
 print('The shortest 10 curves in its length spectrum have lengths:')
-for l in L[:10]: print l
+for l in L[:10]: print(l)
 
 # But if we are only interested in seening if the spectrum contains a curve of length
 # at most 2.2 for example, we can use the threshold function to stop contructing the
