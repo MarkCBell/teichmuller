@@ -83,8 +83,9 @@ def form_positive_basis(U, V):
     
     return U[0] * V[1] >= U[1] * V[0]
 
-def inside_circle((C, R), p):
+def inside_circle(circle, p):
     ''' Given a circle (C, R) and a point p, returns if P is inside (C, R). '''
+    (C, R) = circle
     
     return norm_2(vector(C, p)) < R * R
 
@@ -96,9 +97,10 @@ def to_right_of(p, u, v):
     
     return form_positive_basis(U, V) ^ inside_circle((C, R), p)
 
-def perpendicular_vector((S, D)):
+def perpendicular_vector(vector):
     ''' Given a vector in direction D starting at S, returns a vector perpendicuar 
     to D starting at S. '''
+    (S, D) = vector
     
     return S, (D[1], -D[0])
 
@@ -107,8 +109,9 @@ def perpendicular_bisector(u, v):
     
     return perpendicular_vector((midpoint(u, v), vector(u, v)))
 
-def intersect_vectors((S1,D1), (S2,D2)):
+def intersect_vectors(vector1, vector2):
     ''' Given 2 vectors, returns their point of intersection (or (infty,infty) if parallel).'''
+    (S1,D1), (S2,D2) = vector1, vector2
     
     d = D1[0]*D2[1] - D1[1]*D2[0]
     if d == 0: return (infty, infty)
@@ -121,8 +124,9 @@ def intersect_vectors((S1,D1), (S2,D2)):
 
     return (Px, Py)
 
-def intersect_circles((C1, R1), (C2, R2)):
+def intersect_circles(circle1, circle2):
     ''' Returns the two points of intersection of circles that meet.'''
+    (C1, R1), (C2, R2) = circle1, circle2
     
     d = norm(vector(C1, C2))
     if d > R1 + R2 or d < fabs(R1-R2): return None
@@ -139,8 +143,9 @@ def intersect_circles((C1, R1), (C2, R2)):
     
     return ((P2[0]+D[0], P2[1]-D[1]), (P2[0]-D[0],P2[1]+D[1]))
 
-def involute_in_circle(P, (C,R)=boundary_circle):
+def involute_in_circle(P, circle=boundary_circle):
     ''' Returns the involution in (C,R) of P. '''
+    (C,R) = circle
     
     Q = vector(C, P)
     t = norm_2(Q)
@@ -200,8 +205,9 @@ def perpendicular_circle(u, v):
     R = norm(vector(C, u))
     return C, R
 
-def walk_along_geodesic((C,R), u, t):
+def walk_along_geodesic(circle, u, t):
     ''' Returns the points on the circle (C,R) hyperbolic distance t from u, when u is a point on the circle. '''
+    (C,R) = circle
     assert same_number(R, norm(vector(C, u)))  # Check u is actually on the geodesic.
     if same_number(t,0): return u, u
     

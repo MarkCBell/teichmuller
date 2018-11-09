@@ -95,5 +95,5 @@ class Text:
                 "   %s\n" % self.text + \
                 "  </text>\n"
 
-def colorstr(rgb): return "#%x%x%x" % (rgb[0]/16,rgb[1]/16,rgb[2]/16)
+def colorstr(rgb): return "#%x%x%x" % (rgb[0]//16,rgb[1]//16,rgb[2]//16)
 

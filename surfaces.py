@@ -24,7 +24,7 @@ class Tile:
     def get_move_isometry(self, index1, index2, S1, S2):
         return Isometry(self.vertices[index1], self.vertices[index2], S1, S2)
     def move_isometry(self, h):
-        return Tile(tuple(map(h, self.vertices)), self.parent)
+        return Tile(tuple(h(v) for v in self.vertices), self.parent)
     def move(self, index1, index2, S1, S2):
         return self.move_isometry(self.get_move_isometry(index1, index2, S1, S2))
     def min_distance(self, p=(0,0)):
@@ -124,14 +124,14 @@ class Pants:
             target.gluing[target_cuff]['offset'] = new_cuff_offset
     
     def compute_seam_lengths(self):
-        c = map(lambda x: x/2, self.cuff_lengths)
+        c = [x/2 for x in self.cuff_lengths]
         x = acosh( (cosh(c[1]) * cosh(c[2]) + cosh(c[0])) / (sinh(c[1]) * sinh(c[2])) ) if c[1] != 0 and c[2] != 0 else infty
         y = acosh( (cosh(c[2]) * cosh(c[0]) + cosh(c[1])) / (sinh(c[2]) * sinh(c[0])) ) if c[2] != 0 and c[0] != 0 else infty
         z = acosh( (cosh(c[0]) * cosh(c[1]) + cosh(c[2])) / (sinh(c[0]) * sinh(c[1])) ) if c[0] != 0 and c[1] != 0 else infty
         return x,y,z
     
     def hexagon_decompose(self):
-        c = map(lambda x: x/2, self.cuff_lengths)
+        c = [x/2 for x in self.cuff_lengths]
         s = self.compute_seam_lengths()
         
         # Make 2 new hexagons of the right size.

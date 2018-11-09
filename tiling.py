@@ -1,6 +1,9 @@
 ''' For converting a collection of hyperbolic right angled hexagons to a tilling of H^2. '''
 
-from Queue import Queue
+try:
+    from Queue import Queue
+except ImportError:
+    from queue import Queue
 from surfaces import Tile
 from hyperbolic import FLOAT_ERROR, dist_h, geodesic_centre, walk_along_geodesic, to_right_of, Isometry, interpolate
 from hyperbolic import sqrt, fabs
